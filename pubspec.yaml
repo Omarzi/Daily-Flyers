@@ -1,0 +1,101 @@
+name: daily_flyers_app
+description: "Daily Flyers Program."
+
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.4.3 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.6
+
+  # Make Change App Icon
+  flutter_launcher_icons: ^0.13.1
+
+  # Responsive Ui
+  flutter_screenutil: ^5.9.0
+
+  # Svg Images Reader
+  flutter_svg: ^2.0.10+1
+
+  # Make Animation When Navigate
+  page_transition: ^2.1.0
+
+  # Icons
+  iconsax: ^0.0.8
+
+  # Show Messages
+  floating_snackbar: ^1.0.5
+
+  # Launching a URL. Supports web, phone, SMS, and email
+  url_launcher: ^6.3.0
+
+  # Make Notification
+  flutter_local_notifications: ^12.0.0
+  rxdart: ^0.28.0
+  flutter_timezone: ^2.0.0
+  permission_handler: ^11.3.1
+
+  # Make Animation
+  lottie: ^3.1.2
+
+  # Local DB
+  hive_flutter: ^1.1.0
+  shared_preferences: ^2.2.3
+
+  # Get Date
+  intl: ^0.19.0
+
+  # Aborting and canceling a request
+  dio: ^5.5.0+1
+
+  build_runner: ^2.4.11
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^3.0.0
+
+flutter:
+
+  uses-material-design: true
+
+  assets:
+    - assets/images/pngs/
+    - assets/images/jpgs/
+    - assets/images/svgs/
+    - assets/lotties/
+    - assets/fonts/
+  #   - images/a_dot_burr.jpeg
+  #   - images/a_dot_ham.jpeg
+  fonts:
+    - family: BalooBhaijaan2
+      fonts:
+        - asset: assets/fonts/en/BalooBhaijaan2-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/en/BalooBhaijaan2-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/en/BalooBhaijaan2-SemiBold.ttf
+          weight: 600
+        - asset: assets/fonts/en/BalooBhaijaan2-Bold.ttf
+          weight: 800
+        - asset: assets/fonts/en/BalooBhaijaan2-ExtraBold.ttf
+          weight: 900
+  #   - family: Schyler
+  #     fonts:
+  #       - asset: fonts/Schyler-Regular.ttf
+  #       - asset: fonts/Schyler-Italic.ttf
+  #         style: italic
+
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: "AppIcon"
+  image_path: "assets/images/pngs/appIcon.png"
+  min_sdk_android: 21
+  remove_alpha_ios: true
