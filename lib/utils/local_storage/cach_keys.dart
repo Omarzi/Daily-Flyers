@@ -1,5 +1,9 @@
 enum CacheKeys {
   providerId,
+  countryId,
+  countryImage,
+  countryNameEn,
+  countryNameAr,
   total,
   lang,
   role,
@@ -13,5 +17,6 @@ enum CacheKeys {
   phoneNumber,
   email,
   companiesId,
+  skipLogin,
   notificationVariable,
 }

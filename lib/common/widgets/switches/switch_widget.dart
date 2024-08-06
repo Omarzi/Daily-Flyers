@@ -4,7 +4,8 @@ class SwitchWidget extends StatefulWidget {
   SwitchWidget({super.key, this.valueData = false, required this.onChanged});
 
   bool? valueData;
-  final ValueChanged<bool> onChanged;
+  // final ValueChanged<bool> onChanged;
+  void Function(bool)? onChanged;
 
   @override
   State<SwitchWidget> createState() => _SwitchWidgetState();
@@ -15,10 +16,11 @@ class _SwitchWidgetState extends State<SwitchWidget> {
   Widget build(BuildContext context) {
     return Switch(
       value: widget.valueData!,
-      onChanged: (bool value) {
-        setState(() => widget.valueData = value);
-        widget.onChanged(value);
-      },
+      // onChanged: (bool value) {
+      //   setState(() => widget.valueData = value);
+      //   widget.onChanged(value);
+      // },
+      onChanged: widget.onChanged,
       activeColor: DColors.primaryColor500,
       activeTrackColor: DColors.primaryColor500,
       inactiveTrackColor: DColors.greyScale200,

@@ -6,37 +6,37 @@ abstract class DStyles {
     color: DColors.greyScale900,
     fontSize: 48.sp,
     fontWeight: FontWeight.bold,
-    fontFamily: 'Urbanist',
+    fontFamily: 'BalooBhaijaan2',
   );
   static TextStyle h2Bold = TextStyle(
     color: DColors.greyScale900,
     fontSize: 40.sp,
     fontWeight: FontWeight.bold,
-    fontFamily: 'Urbanist',
+    fontFamily: 'BalooBhaijaan2',
   );
   static TextStyle h3Bold = TextStyle(
     color: DColors.greyScale900,
     fontSize: 32.sp,
     fontWeight: FontWeight.bold,
-    fontFamily: 'Urbanist',
+    fontFamily: 'BalooBhaijaan2',
   );
   static TextStyle h4Bold = TextStyle(
     color: DColors.greyScale900,
     fontSize: 24.sp,
     fontWeight: FontWeight.bold,
-    fontFamily: 'Urbanist',
+    fontFamily: 'BalooBhaijaan2',
   );
   static TextStyle h5Bold = TextStyle(
     color: DColors.greyScale900,
     fontSize: 20.sp,
     fontWeight: FontWeight.bold,
-    fontFamily: 'Urbanist',
+    fontFamily: 'BalooBhaijaan2',
   );
   static TextStyle h6Bold = TextStyle(
     color: DColors.greyScale900,
     fontSize: 18.sp,
     fontWeight: FontWeight.bold,
-    fontFamily: 'Urbanist',
+    fontFamily: 'BalooBhaijaan2',
   );
 
   /// Body
@@ -45,28 +45,28 @@ abstract class DStyles {
     color: DColors.greyScale900,
     fontSize: 18.sp,
     fontWeight: FontWeight.w400,
-    fontFamily: 'Urbanist',
+    fontFamily: 'BalooBhaijaan2',
     letterSpacing: .2.w,
   );
   static TextStyle bodyXLargeSemiBold = TextStyle(
     color: DColors.greyScale900,
     fontSize: 18.sp,
     fontWeight: FontWeight.w600,
-    fontFamily: 'Urbanist',
+    fontFamily: 'BalooBhaijaan2',
     letterSpacing: .2.w,
   );
   static TextStyle bodyXLargeBold = TextStyle(
     color: DColors.greyScale900,
     fontSize: 18.sp,
     fontWeight: FontWeight.bold,
-    fontFamily: 'Urbanist',
+    fontFamily: 'BalooBhaijaan2',
     letterSpacing: .2.w,
   );
   static TextStyle bodyXLargeMedium = TextStyle(
     color: DColors.greyScale900,
     fontSize: 18.sp,
     fontWeight: FontWeight.w500,
-    fontFamily: 'Urbanist',
+    fontFamily: 'BalooBhaijaan2',
     letterSpacing: .2.w,
   );
 
@@ -75,28 +75,28 @@ abstract class DStyles {
     color: DColors.greyScale900,
     fontSize: 16.sp,
     fontWeight: FontWeight.w400,
-    fontFamily: 'Urbanist',
+    fontFamily: 'BalooBhaijaan2',
     letterSpacing: .2.w,
   );
   static TextStyle bodyLargeSemiBold = TextStyle(
     color: DColors.greyScale900,
     fontSize: 16.sp,
     fontWeight: FontWeight.w600,
-    fontFamily: 'Urbanist',
+    fontFamily: 'BalooBhaijaan2',
     letterSpacing: .2.w,
   );
   static TextStyle bodyLargeBold = TextStyle(
     color: DColors.greyScale900,
     fontSize: 16.sp,
     fontWeight: FontWeight.bold,
-    fontFamily: 'Urbanist',
+    fontFamily: 'BalooBhaijaan2',
     letterSpacing: .2.w,
   );
   static TextStyle bodyLargeMedium = TextStyle(
     color: DColors.greyScale900,
     fontSize: 16.sp,
     fontWeight: FontWeight.w500,
-    fontFamily: 'Urbanist',
+    fontFamily: 'BalooBhaijaan2',
     letterSpacing: .2.w,
   );
 
@@ -105,28 +105,28 @@ abstract class DStyles {
     color: DColors.greyScale900,
     fontSize: 14.sp,
     fontWeight: FontWeight.w400,
-    fontFamily: 'Urbanist',
+    fontFamily: 'BalooBhaijaan2',
     letterSpacing: .2.w,
   );
   static TextStyle bodyMediumSemiBold = TextStyle(
     color: DColors.greyScale900,
     fontSize: 14.sp,
     fontWeight: FontWeight.w600,
-    fontFamily: 'Urbanist',
+    fontFamily: 'BalooBhaijaan2',
     letterSpacing: .2.w,
   );
   static TextStyle bodyMediumBold = TextStyle(
     color: DColors.greyScale900,
     fontSize: 14.sp,
     fontWeight: FontWeight.bold,
-    fontFamily: 'Urbanist',
+    fontFamily: 'BalooBhaijaan2',
     letterSpacing: .2.w,
   );
   static TextStyle bodyMediumMedium = TextStyle(
     color: DColors.greyScale900,
     fontSize: 14.sp,
     fontWeight: FontWeight.w500,
-    fontFamily: 'Urbanist',
+    fontFamily: 'BalooBhaijaan2',
     letterSpacing: .2.w,
   );
 
@@ -135,28 +135,28 @@ abstract class DStyles {
     color: DColors.greyScale900,
     fontSize: 12.sp,
     fontWeight: FontWeight.w400,
-    fontFamily: 'Urbanist',
+    fontFamily: 'BalooBhaijaan2',
     letterSpacing: .2.w,
   );
   static TextStyle bodySmallSemiBold = TextStyle(
     color: DColors.greyScale900,
     fontSize: 12.sp,
     fontWeight: FontWeight.w600,
-    fontFamily: 'Urbanist',
+    fontFamily: 'BalooBhaijaan2',
     letterSpacing: .2.w,
   );
   static TextStyle bodySmallBold = TextStyle(
     color: DColors.greyScale900,
     fontSize: 12.sp,
     fontWeight: FontWeight.bold,
-    fontFamily: 'Urbanist',
+    fontFamily: 'BalooBhaijaan2',
     letterSpacing: .2.w,
   );
   static TextStyle bodySmallMedium = TextStyle(
     color: DColors.greyScale900,
     fontSize: 12.sp,
     fontWeight: FontWeight.w500,
-    fontFamily: 'Urbanist',
+    fontFamily: 'BalooBhaijaan2',
     letterSpacing: .2.w,
   );
 
@@ -165,28 +165,28 @@ abstract class DStyles {
     color: DColors.greyScale900,
     fontSize: 12.sp,
     fontWeight: FontWeight.w400,
-    fontFamily: 'Urbanist',
+    fontFamily: 'BalooBhaijaan2',
     letterSpacing: .2.w,
   );
   static TextStyle bodyXSmallSemiBold = TextStyle(
     color: DColors.greyScale900,
     fontSize: 12.sp,
     fontWeight: FontWeight.w600,
-    fontFamily: 'Urbanist',
+    fontFamily: 'BalooBhaijaan2',
     letterSpacing: .2.w,
   );
   static TextStyle bodyXSmallBold = TextStyle(
     color: DColors.greyScale900,
     fontSize: 12.sp,
     fontWeight: FontWeight.bold,
-    fontFamily: 'Urbanist',
+    fontFamily: 'BalooBhaijaan2',
     letterSpacing: .2.w,
   );
   static TextStyle bodyXSmallMedium = TextStyle(
     color: DColors.greyScale900,
     fontSize: 12.sp,
     fontWeight: FontWeight.w500,
-    fontFamily: 'Urbanist',
+    fontFamily: 'BalooBhaijaan2',
     letterSpacing: .2.w,
   );
 }

@@ -3,7 +3,9 @@ import 'package:daily_flyers_app/utils/constants/exports.dart';
 import 'package:daily_flyers_app/utils/device/device_utility.dart';
 
 class LoginScreen extends StatelessWidget {
-  const LoginScreen({super.key});
+  const LoginScreen({super.key, required this.message});
+
+  final String message;
 
   @override
   Widget build(BuildContext context) {
@@ -27,12 +29,12 @@ class LoginScreen extends StatelessWidget {
             SizedBox(height: 20.h),
 
             /// Create Account Text
-            Text('Login', style: DStyles.h2Bold.copyWith(color: DColors.greyScale900)),
+            Text(AppLocalizations.of(context)!.translate('email')!, style: DStyles.h2Bold.copyWith(color: DColors.greyScale900)),
 
             /// Make Space
             SizedBox(height: 20.h),
 
-            const LoginFormWidget(),
+            LoginFormWidget(message: message),
           ],
         ),
       ),

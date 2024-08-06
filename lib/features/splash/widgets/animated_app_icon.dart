@@ -14,6 +14,7 @@ class _AnimatedAppIconState extends State<AnimatedAppIcon>
 
   @override
   void initState() {
+    logWarning(DCacheHelper.getString(key: CacheKeys.token).toString());
     super.initState();
     initSlidingAnimation();
     navigationToHome(context);
@@ -40,11 +41,10 @@ class _AnimatedAppIconState extends State<AnimatedAppIcon>
     Future.delayed(
       const Duration(seconds: 3),
       () {
-        context.pushReplacementNamed(DRoutesName.loginRoute);
-        // Navigator.pushReplacement(
-        //   context,
-        //   DHelperFunctions.pageRouteBuilder(screenName: NavigationMenu()),
-        // );
+        DCacheHelper.getString(key: CacheKeys.skipLogin)!.isNotEmpty || DCacheHelper.getString(key: CacheKeys.token)!.isNotEmpty
+            // ? context.pushReplacementNamed(DRoutesName.navigationMenuRoute)
+            ? context.pushReplacementNamed(DRoutesName.homeRoute)
+            : context.pushReplacementNamed(DRoutesName.checkLanguageRoute, arguments: '');
       },
     );
   }

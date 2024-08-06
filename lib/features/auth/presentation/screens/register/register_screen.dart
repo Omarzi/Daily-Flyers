@@ -1,6 +1,5 @@
 import 'package:daily_flyers_app/features/auth/presentation/widgets/register_form_widget/register_form_widget.dart';
 import 'package:daily_flyers_app/utils/constants/exports.dart';
-import 'package:daily_flyers_app/utils/device/device_utility.dart';
 
 class RegisterScreen extends StatelessWidget {
   const RegisterScreen({super.key});
@@ -27,7 +26,7 @@ class RegisterScreen extends StatelessWidget {
             SizedBox(height: 20.h),
 
             /// Create Account Text
-            Text('Sign Up', style: DStyles.h2Bold.copyWith(color: DColors.greyScale900)),
+            Text(AppLocalizations.of(context)!.translate('singUp')!, style: DStyles.h2Bold.copyWith(color: DColors.greyScale900)),
 
             /// Make Space
             SizedBox(height: 20.h),

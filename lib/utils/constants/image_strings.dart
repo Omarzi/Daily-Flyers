@@ -25,5 +25,6 @@ class DImages {
   static const String loginLogo = 'assets/images/svgs/loginLogo.svg';
   static const String registerIcon = 'assets/images/svgs/registerIcon.svg';
   static const String visibleIcon = 'assets/images/svgs/visibleIcon.svg';
+  static const String checkIcon = 'assets/images/svgs/checkIcon.svg';
   static const String unVisibleIcon = 'assets/images/svgs/unVisibleIcon.svg';
 }

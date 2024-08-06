@@ -12,6 +12,7 @@ class DColors {
   // static final primaryColor100 = HexColor('F1E7FF');
 
   /// ----------------------------------------------- \\\
+  static final grey2ColorPlayed = HexColor('#F2F3F8');
 
   /// Alert & Status
   static final success = HexColor('4ADE80');

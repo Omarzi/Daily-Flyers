@@ -1,8 +1,8 @@
 import 'dart:io';
 import 'package:daily_flyers_app/utils/constants/exports.dart';
+import 'package:shimmer/shimmer.dart';
 
 class DDeviceUtils {
-
 //   static Future<void> showDialogFunction({required BuildContext context, required String imagePath}) async {
 //     await showDialog<void>(
 //       context: context,
@@ -84,7 +84,98 @@ class DDeviceUtils {
 //     );
 // }
 
-  static Container buildDotWidget(int index, int currentIndex, BuildContext context, Decoration decoration) {
+  static Widget buildBannersShimmer(BuildContext context) {
+    return SizedBox(
+      height: DDeviceUtils.getScreenHeight(context) / 4.8,
+      child: Shimmer.fromColors(
+        baseColor: Colors.grey[300]!,
+        highlightColor: Colors.grey[100]!,
+        child: ListView.builder(
+          scrollDirection: Axis.horizontal,
+          itemCount: 3, // Number of shimmer items
+          itemBuilder: (context, index) => Container(
+            margin: EdgeInsets.all(12.sp),
+            decoration: BoxDecoration(
+              color: Colors.grey,
+              borderRadius: BorderRadius.circular(24.r),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  static Widget buildCategoriesShimmer(BuildContext context) {
+    return SizedBox(
+      height: DDeviceUtils.getScreenHeight(context) / 12,
+      child: Shimmer.fromColors(
+        baseColor: Colors.grey[300]!,
+        highlightColor: Colors.grey[100]!,
+        child: ListView.builder(
+          scrollDirection: Axis.horizontal,
+          itemCount: 5, // Number of shimmer items
+          itemBuilder: (context, index) => Container(
+            margin: EdgeInsets.all(15.w),
+            padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 8.h),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(6.r),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  static Widget buildCompaniesShimmer(BuildContext context) {
+    return GridView.builder(
+      physics: const NeverScrollableScrollPhysics(),
+      itemCount: 6, // Number of shimmer items
+      shrinkWrap: true,
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 3,
+        childAspectRatio: DDeviceUtils.getScreenHeight(context) / 1200,
+      ),
+      itemBuilder: (context, index) => Shimmer.fromColors(
+        baseColor: Colors.grey[300]!,
+        highlightColor: Colors.grey[100]!,
+        child: Container(
+          margin: EdgeInsets.all(8.w),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(12.r),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                height: DDeviceUtils.getScreenHeight(context) / 15,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(12.r),
+                ),
+              ),
+              SizedBox(height: 12.h),
+              Container(
+                height: 20.h,
+                width: 100.w,
+                color: Colors.white,
+              ),
+              SizedBox(height: 4.h),
+              Container(
+                height: 15.h,
+                width: 60.w,
+                color: Colors.white,
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  static Container buildDotWidget(int index, int currentIndex,
+      BuildContext context, Decoration decoration) {
     return Container(
       height: 8.h,
       width: currentIndex == index ? 32.w : 8.w,
@@ -93,14 +184,47 @@ class DDeviceUtils {
     );
   }
 
-  static void showCustomBottomSheet({required BuildContext context, required Widget widget}) {
+  static void showCustomBottomSheet(
+      {required BuildContext context, required Widget widget}) {
     showModalBottomSheet(
       context: context,
       builder: (BuildContext context) {
         return widget;
       },
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.only(topLeft: Radius.circular(40.r), topRight: Radius.circular(40.r))),
+      shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(40.r), topRight: Radius.circular(40.r))),
       backgroundColor: Colors.transparent,
+    );
+  }
+
+  static void showLoginMessageDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text(AppLocalizations.of(context)!.translate('loginRequired')!, style: DStyles.bodyXLargeBold),
+          content: Text(AppLocalizations.of(context)!.translate('loginInFirst')!, style: DStyles.bodyLargeRegular),
+          actions: <Widget>[
+            TextButton(
+              child: Text(AppLocalizations.of(context)!.translate('goToLogin')!,
+                  style: DStyles.bodyMediumBold
+                      .copyWith(color: DColors.primaryColor500)),
+              onPressed: () {
+                context.pushNamedAndRemoveUntil(DRoutesName.loginRoute, predicate: (route) => false, arguments: '');
+              },
+            ),
+            TextButton(
+              child: Text(AppLocalizations.of(context)!.translate('cancel')!,
+                  style: DStyles.bodyMediumBold
+                      .copyWith(color: DColors.error)),
+              onPressed: () {
+                context.pop();
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 
@@ -148,7 +272,8 @@ class DDeviceUtils {
   }
 
   static void setFullScreen(bool enable) {
-    SystemChrome.setEnabledSystemUIMode(enable ? SystemUiMode.immersiveSticky : SystemUiMode.edgeToEdge);
+    SystemChrome.setEnabledSystemUIMode(
+        enable ? SystemUiMode.immersiveSticky : SystemUiMode.edgeToEdge);
   }
 
   static double getScreenHeight(BuildContext context) {
@@ -186,7 +311,8 @@ class DDeviceUtils {
   }
 
   static isPhysicalDevice() async {
-    return defaultTargetPlatform == TargetPlatform.android || defaultTargetPlatform == TargetPlatform.iOS;
+    return defaultTargetPlatform == TargetPlatform.android ||
+        defaultTargetPlatform == TargetPlatform.iOS;
   }
 
   static void vibrate(Duration duration) {
@@ -194,7 +320,8 @@ class DDeviceUtils {
     Future.delayed(duration, () => HapticFeedback.vibrate());
   }
 
-  static Future<void> setPreferredOrientations(List<DeviceOrientation> orientations) async {
+  static Future<void> setPreferredOrientations(
+      List<DeviceOrientation> orientations) async {
     await SystemChrome.setPreferredOrientations(orientations);
   }
 
@@ -203,14 +330,15 @@ class DDeviceUtils {
   }
 
   static void showStatusBar() {
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: SystemUiOverlay.values);
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
+        overlays: SystemUiOverlay.values);
   }
 
   static Future<bool> hasInternetConnection() async {
     try {
       final result = await InternetAddress.lookup('example.com');
       return result.isNotEmpty && result[0].rawAddress.isNotEmpty;
-    } on SocketException catch(_) {
+    } on SocketException catch (_) {
       return false;
     }
   }
@@ -224,7 +352,7 @@ class DDeviceUtils {
   }
 
   static void launchUrl(String url) async {
-    if(await canLaunchUrlString(url)) {
+    if (await canLaunchUrlString(url)) {
       await launchUrlString(url);
     } else {
       throw 'Could not launch $url';

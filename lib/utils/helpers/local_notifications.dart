@@ -108,7 +108,7 @@ class LocalNotifications {
     required String body,
     required String payload,
   }) async {
-    const AndroidNotificationDetails androidNotificationDetails =
+    AndroidNotificationDetails androidNotificationDetails =
     AndroidNotificationDetails(
       'channel 2',
       'your channel name',
@@ -117,15 +117,21 @@ class LocalNotifications {
       priority: Priority.high,
       icon: '@mipmap/launcher_icon', // Change icon here
       ticker: 'ticker',
+      styleInformation: BigTextStyleInformation(
+        '',
+        contentTitle: '<b>$title</b>',
+        htmlFormatContentTitle: true,
+        summaryText: '<i>$body</i>',
+        htmlFormatSummaryText: true,
+      ),
     );
-    const NotificationDetails notificationDetails =
-    NotificationDetails(android: androidNotificationDetails);
+    NotificationDetails notificationDetails = NotificationDetails(android: androidNotificationDetails);
 
     await _flutterLocalNotificationsPlugin.periodicallyShow(
       1,
       title,
       body,
-      RepeatInterval.everyMinute,
+      RepeatInterval.weekly,
       notificationDetails,
       payload: payload,
     );
