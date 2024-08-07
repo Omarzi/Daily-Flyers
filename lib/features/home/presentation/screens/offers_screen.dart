@@ -64,8 +64,10 @@
 // }
 
 import 'package:daily_flyers_app/features/home/managers/home_cubit.dart';
+import 'package:daily_flyers_app/features/home/presentation/screens/offers/all_photos_screen.dart';
 import 'package:daily_flyers_app/utils/constants/api_constants.dart';
 import 'package:daily_flyers_app/utils/constants/exports.dart';
+import 'package:lottie/lottie.dart';
 
 class OffersScreen extends StatefulWidget {
   const OffersScreen({super.key, required this.data});
@@ -117,34 +119,91 @@ class _OffersScreenState extends State<OffersScreen> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-
-                          offersCubit.allOffersModel.data == null && offersCubit.offersDataList.isEmpty
+                          offersCubit.allOffersModel.data == null
                               ? const Center(child: CircularProgressIndicator())
-                              : Container(
-                            color: Colors.red,
-                            height: DDeviceUtils.getScreenHeight(context) / 1.2,
-                            child: ListView.separated(
-                              shrinkWrap: true,
-                              itemCount: offersCubit.offersDataList.length,
-                              separatorBuilder: (context, index) {
-                                return Divider(color: Colors.red);
-                              },
-                              itemBuilder: (context, index) {
-                                return Column(
-                                  children: [
-                                    Image.network('${ApiConstants.baseUrlForImageInBanner}${offersCubit.offersDataList[index].image}', height: 100.h, width: 100.w),
-                                    Text('Views: ${offersCubit.offersDataList[index].views}'),
-                                    Text('Ar Title: ${offersCubit.offersDataList[index].arTitle}'),
-                                    Text('En Title: ${offersCubit.offersDataList[index].enTitle}'),
-                                    Text('Ar Description: ${offersCubit.offersDataList[index].arDescription}'),
-                                    Text('En Description: ${offersCubit.offersDataList[index].enDescription}'),
-                                    Text('Start Date: ${offersCubit.offersDataList[index].startDate}'),
-                                    Text('End Date: ${offersCubit.offersDataList[index].endDate}'),
-                                  ],
-                                );
-                              },
+                          //     : Container(
+                          //   color: Colors.red,
+                          //   height: DDeviceUtils.getScreenHeight(context) / 1.2,
+                          //   child: ListView.separated(
+                          //     shrinkWrap: true,
+                          //     itemCount: offersCubit.offersDataList.length,
+                          //     separatorBuilder: (context, index) {
+                          //       return Divider(color: Colors.red);
+                          //     },
+                          //     itemBuilder: (context, index) {
+                          //       return Column(
+                          //         children: [
+                          //           Image.network('${ApiConstants.baseUrlForImageInBanner}${offersCubit.offersDataList[index].image}', height: 100.h, width: 100.w),
+                          //           Text('Views: ${offersCubit.offersDataList[index].views}'),
+                          //           Text('Ar Title: ${offersCubit.offersDataList[index].arTitle}'),
+                          //           Text('En Title: ${offersCubit.offersDataList[index].enTitle}'),
+                          //           Text('Ar Description: ${offersCubit.offersDataList[index].arDescription}'),
+                          //           Text('En Description: ${offersCubit.offersDataList[index].enDescription}'),
+                          //           Text('Start Date: ${offersCubit.offersDataList[index].startDate}'),
+                          //           Text('End Date: ${offersCubit.offersDataList[index].endDate}'),
+                          //         ],
+                          //       );
+                          //     },
+                          //   ),
+                          // )
+                          : offersCubit.offersDataList == [] || offersCubit.offersDataList.isEmpty
+                              ? Lottie.asset('assets/lotties/emptyCompanies.json', height: DDeviceUtils.getScreenHeight(context) / 6)
+                              : GridView.builder(
+                            shrinkWrap: true,
+                            itemCount: offersCubit.offersDataList.length,
+                            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 2,
+                              childAspectRatio: DDeviceUtils.getScreenHeight(context) / 1000,
+                              crossAxisSpacing: DDeviceUtils.getScreenWidth(context) / 30,
+                              mainAxisSpacing: DDeviceUtils.getScreenHeight(context) / .2,
                             ),
-                          )
+                            itemBuilder: (context, index) {
+                              return GestureDetector(
+                                onTap: () {
+                                  // Navigator.push(context, PageRouteBuilder(pageBuilder: (context, animation, secondaryAnimation) => Test(),));
+                                    context.pushNamed(DRoutesName.allPhotosRoute, arguments: {
+                                      'titleAr': offersCubit.offersDataList[index].arTitle,
+                                      'titleEn': offersCubit.offersDataList[index].enTitle,
+                                    });
+                                },
+                                child: Stack(
+                                  children: [
+                                    Container(
+                                      height: 400.h,
+                                      width: 200.w,
+                                      decoration: BoxDecoration(
+                                          color: Colors.red,
+                                          image: DecorationImage(
+                                            image: NetworkImage('${ApiConstants.baseUrlForImageInBanner}${offersCubit.offersDataList[index].image}'),
+                                            fit: BoxFit.cover,
+                                          )
+                                      ),
+                                    ),
+
+                                    Positioned(
+                                      bottom: 0.h,
+                                      child: Container(
+                                        height: 90.h,
+                                        width: 200.w,
+                                        color: DColors.blackColor.withOpacity(.4),
+                                        padding: EdgeInsets.symmetric(horizontal: 8.w),
+                                        child: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            Text('${offersCubit.offersDataList[index].views} ${AppLocalizations.of(context)!.translate('views')}', style: DStyles.bodyMediumBold.copyWith(color: DColors.primaryColor500)),
+                                            Text('${AppLocalizations.of(context)!.isEnLocale ? offersCubit.offersDataList[index].enTitle : offersCubit.offersDataList[index].arTitle}', style: DStyles.bodyMediumBold.copyWith(color: DColors.whiteColor)),
+                                            Text('${AppLocalizations.of(context)!.isEnLocale ? offersCubit.offersDataList[index].enDescription : offersCubit.offersDataList[index].arDescription}', style: DStyles.bodySmallMedium.copyWith(color: DColors.whiteColor)),
+                                            Text('${AppLocalizations.of(context)!.translate('from')}: ${offersCubit.offersDataList[index].startDate}', style: DStyles.bodySmallMedium.copyWith(color: DColors.whiteColor)),
+                                            Text('${AppLocalizations.of(context)!.translate('to')}: ${offersCubit.offersDataList[index].endDate}', style: DStyles.bodySmallMedium.copyWith(color: DColors.whiteColor))
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              );
+                            },
+                          ),
                         ],
                       ),
                     )

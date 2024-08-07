@@ -9,4 +9,5 @@ class DRoutesName {
   static const String registerRoute = 'registerRoute';
   static const String profileRoute = 'profileRoute';
   static const String offersRoute = 'offersRoute';
+  static const String allPhotosRoute = 'allPhotosRoute';
 }

@@ -70,9 +70,9 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     // HomeCubit.get(context).getAllBannersFunction();
-    HomeCubit.get(context).getAllBannersFunction();
-    HomeCubit.get(context).getAllCategoriesFunction();
-    HomeCubit.get(context).getAllCompaniesFunction(page: 1, limit: 8);
+    // HomeCubit.get(context).getAllBannersFunction();
+    // HomeCubit.get(context).getAllCategoriesFunction();
+    // HomeCubit.get(context).getAllCompaniesFunction(page: 1, limit: 8);
     logError(DCacheHelper.getString(key: CacheKeys.countryNameEn).toString());
     CountiesCubit.get(context).getAllCountriesFunction();
     selectedCountryNameAr = DCacheHelper.getString(key: CacheKeys.countryNameAr);
@@ -199,27 +199,9 @@ class _HomeScreenState extends State<HomeScreen> {
     setState(() {
       page = 1;
     });
-    HomeCubit.get(context).getAllCompaniesFunction(search: query, page: page);
+    HomeCubit.get(context).getAllCompaniesFunction(search: query, page: 1, limit: 8);
   }
 
-  // BannerAd bannerAd = BannerAd(
-  //   size: AdSize.banner,
-  //   adUnitId: 'ca-app-pub-1629700119082334/2974728956',
-  //   listener: BannerAdListener(
-  //     onAdLoaded: (ad) {
-  //       logSuccess('Ad Loaded Success');
-  //     },
-  //     onAdFailedToLoad: (ad, error) {
-  //       logError('Ad Loaded Failed');
-  //       ad.dispose();
-  //     },
-  //     onAdOpened: (ad) {
-  //       logSuccess('Ad Loaded Success');
-  //     },
-  //   ),
-  //   request: const AdRequest(),
-  // );
-  
   void load() {
     bannerAd = BannerAd(
       size: AdSize.banner,
@@ -317,12 +299,13 @@ class _HomeScreenState extends State<HomeScreen> {
               title: Text(AppLocalizations.of(context)!.translate('home')!, style: DStyles.bodyXLargeRegular),
               trailing: Icon(Icons.arrow_forward_ios, size: 22.sp),
               onTap: () {
+                context.pop();
                 // Handle drawer item tap
               },
             ),
 
             /// Profile
-            ListTile(
+            if(DCacheHelper.getString(key: CacheKeys.token)! != '') ListTile(
               leading: const Icon(Iconsax.personalcard),
               title: Text(AppLocalizations.of(context)!.translate('profile')!, style: DStyles.bodyXLargeRegular),
               trailing: Icon(Icons.arrow_forward_ios, size: 22.sp),
@@ -399,14 +382,14 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
 
             /// About us
-            ListTile(
-              leading: const Icon(Iconsax.info_circle),
-              title: Text(AppLocalizations.of(context)!.translate('aboutUs')!, style: DStyles.bodyXLargeRegular),
-              trailing: Icon(Icons.arrow_forward_ios, size: 22.sp),
-              onTap: () {
-                // Handle drawer item tap
-              },
-            ),
+            // ListTile(
+            //   leading: const Icon(Iconsax.info_circle),
+            //   title: Text(AppLocalizations.of(context)!.translate('aboutUs')!, style: DStyles.bodyXLargeRegular),
+            //   trailing: Icon(Icons.arrow_forward_ios, size: 22.sp),
+            //   onTap: () {
+            //     // Handle drawer item tap
+            //   },
+            // ),
 
             /// Logout
             ListTile(
@@ -438,10 +421,12 @@ class _HomeScreenState extends State<HomeScreen> {
           listener: (context, state) {
             if(state is AddToFavoriteSuccessState) {
               SnackBar snackBar = SnackBar(content: Text(AppLocalizations.of(context)!.translate('addToFav')!, style: DStyles.bodyMediumBold.copyWith(color: DColors.whiteColor)), backgroundColor: DColors.success);
-              HomeCubit.get(context).getAllCompaniesFunction(page: 1, limit: 8);
+              logWarning(HomeCubit.get(context).categoriesList[selectedCategoryIndex].enName.toString());
+              HomeCubit.get(context).getAllCompaniesFunction(page: 1, limit: 8, filter: selectedCategoryIndex == 0 ? '' : HomeCubit.get(context).categoriesList[selectedCategoryIndex].id.toString());
 
               ScaffoldMessenger.of(context).showSnackBar(snackBar);
-            } else if(state is AddToFavoriteErrorState) {
+            }
+            else if(state is AddToFavoriteErrorState) {
               SnackBar snackBar = SnackBar(content: Text(AppLocalizations.of(context)!.translate('youMustGoToYourFav')!, style: DStyles.bodyMediumBold.copyWith(color: DColors.whiteColor)), backgroundColor: DColors.error);
 
               ScaffoldMessenger.of(context).showSnackBar(snackBar);
@@ -486,7 +471,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                   ),
 
                                   GestureDetector(
-                                    onTap: () => context.pushNamed(DRoutesName.wishListRoute),
+                                    onTap: () => context.pushNamed(DRoutesName.wishListRoute).then((val) {
+                                      homeCubit.getAllCompaniesFunction(page: 1, limit: 8);
+                                    }),
                                     child: Row(
                                       children: [
                                         Text(AppLocalizations.of(context)!.translate('favourites')!, style: DStyles.h5Bold.copyWith(color: DColors.whiteColor)),
@@ -540,6 +527,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                           searchController.clear();
                                           isClearIcon = false;
                                           onSearchChanged('');
+                                          homeCubit.getAllCompaniesFunction(limit: 8, page: 1);
                                         });
                                       },
                                       child:
@@ -554,8 +542,13 @@ class _HomeScreenState extends State<HomeScreen> {
                                     setState(() {
                                       isClearIcon = searchController.text.isNotEmpty;
                                     });
-                                    onSearchChanged(value);
+                                    HomeCubit.get(context).getAllCompaniesFunction(search: value, page: 1, limit: 8, filter: homeCubit.categoriesList[selectedCategoryIndex].id.toString());
+                                    // onSearchChanged(value);
                                     logError(value);
+                                    logError(homeCubit.categoriesList[selectedCategoryIndex].id.toString());
+                                  },
+                                  onFieldSubmitted: (value) {
+                                    homeCubit.getAllCompaniesFunction(search: value, limit: 8, page: 1, filter: homeCubit.categoriesList[selectedCategoryIndex].id.toString());
                                   },
                                 ),
                               ),
@@ -564,7 +557,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
 
                         Expanded(
-                          child: homeCubit.getAllBannersModel.data == null && homeCubit.categoriesList.isEmpty && homeCubit.companiesList.isEmpty
+                          child: homeCubit.getAllBannersModel.data == null && homeCubit.companiesList.isEmpty
                               ? Column(
                             children: [
                               DDeviceUtils.buildBannersShimmer(context),
@@ -574,7 +567,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           )
                               : RefreshIndicator(
                             onRefresh: () {
-                              return homeCubit.getAllCompaniesFunction(page: page, limit: 8);
+                              return homeCubit.getAllCompaniesFunction(page: 1, limit: 8);
                             },
                             child: SingleChildScrollView(
                               controller: _scrollController,
@@ -647,6 +640,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                               selectedCategoryIndex = index;
                                             });
                                             if (homeCubit.categoriesList[index].enName == 'All' || homeCubit.categoriesList[index].arName == 'الكل') {
+                                              logWarning('asdfhi');
                                               homeCubit.getAllCompaniesFunction(page: 1, limit: 8, filter: null);
                                             } else {
                                               homeCubit.getAllCompaniesFunction(page: 1, limit: 8, filter: homeCubit.categoriesList[index].id.toString());
@@ -679,7 +673,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   ),
 
                                   /// Data
-                                  homeCubit.companiesList == []
+                                  homeCubit.companiesList == [] || homeCubit.companiesList.isEmpty
                                       ? Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
@@ -692,7 +686,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                       ),
                                     ],
                                   )
-                                      : state is GetAllCompaniesLoadingState || homeCubit.companiesList.isEmpty
+                                      : state is GetAllCompaniesLoadingState
                                       ? CircularProgressIndicator()
                                       : Padding(
                                     padding: EdgeInsets.only(left: 15.w, right: 15.w),
@@ -748,54 +742,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                   crossAxisAlignment: CrossAxisAlignment.start,
                                                   children: [
                                                     GestureDetector(
-                                                      // onTap: () async {
-                                                      //   setState(() {
-                                                      //     if (selectedCompanyIndices.contains(index)) {
-                                                      //       selectedCompanyIndices.remove(index);
-                                                      //
-                                                      //       DCacheHelper.deleteIntListItem(key: CacheKeys.companiesId, indexToDelete: index);
-                                                      //
-                                                      //       final snackBar = SnackBar(
-                                                      //         content: Text('Removed from favorites', style: DStyles.bodyMediumRegular.copyWith(color: DColors.whiteColor)),
-                                                      //         backgroundColor: DColors.error,
-                                                      //       );
-                                                      //       ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                                                      //     }
-                                                      //     else {
-                                                      //       // selectedCompanyIndices.add(index);
-                                                      //
-                                                      //       // DCacheHelper.putIntList(key: CacheKeys.companiesId, value: selectedCompanyIndices);
-                                                      //
-                                                      //       // final snackBar = SnackBar(
-                                                      //       //   content: Text('Added from favorites', style: DStyles.bodyMediumRegular.copyWith(color: DColors.whiteColor)),
-                                                      //       //   backgroundColor: DColors.success,
-                                                      //       // );
-                                                      //       // ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                                                      //     }
-                                                      //   });
-                                                      //
-                                                      //   logSuccess('$selectedCompanyIndices -------------------------');
-                                                      //   // setState(() {
-                                                      //   //   isFavoriteList[index] = !isFavoriteList[index];
-                                                      //   // });
-                                                      //   //
-                                                      //   // if(isFavoriteList[index]) {
-                                                      //   //   /// Delete
-                                                      //   //   logError('Deleted');
-                                                      //   //   DCacheHelper.deleteIntListItem(key: CacheKeys.companiesId, indexToDelete: index);
-                                                      //   // } else {
-                                                      //   //   logError('Putted');
-                                                      //   //   isFavoriteList[index] = true;
-                                                      //   //   DCacheHelper.putIntList(key: CacheKeys.companiesId, value: companyId);
-                                                      //   // }
-                                                      //   // final snackBar = SnackBar(
-                                                      //   //   content: Text(isFavoriteList[index] ? 'Added Successfully' : 'Removed from favorites', style: DStyles.bodyMediumRegular.copyWith(color: DColors.whiteColor)),
-                                                      //   //   backgroundColor: isFavoriteList[index] ? DColors.success : DColors.error,
-                                                      //   // );
-                                                      //   // ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                                                      // },
                                                       onTap: () {
-                                                        // logSuccess('Love');
                                                         if(DCacheHelper.getString(key: CacheKeys.skipLogin)!.isNotEmpty) {
                                                           DDeviceUtils.showLoginMessageDialog(context);
                                                         } else {
@@ -804,12 +751,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                                           homeCubit.addToFavoriteFunction(companyId: homeCubit.companiesList[index].id.toString());
                                                         }
                                                       },
-                                                      // child: SvgPicture.asset(
-                                                      // selectedCompanyIndices.contains(index)
-                                                      //     ? DImages.heartSelected : DImages.heartNotSelected, colorFilter: ColorFilter.mode(selectedCompanyIndices.contains(index)
-                                                      //   ? DColors.error
-                                                      //   : DColors.error,
-                                                      //   BlendMode.srcIn),),
                                                       child: SvgPicture.asset(
                                                         homeCubit.companiesList[index].favorites == 0
                                                             ? DImages.heartNotSelected
@@ -821,11 +762,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                                       ),
                                                     ),
 
-                                                    // Row(
-                                                    //   mainAxisAlignment: MainAxisAlignment.end,
-                                                    //   children: [
-                                                    //   ],
-                                                    // ),
                                                     SizedBox(height: 12.h),
                                                     Container(
                                                       height: DDeviceUtils.getScreenHeight(context) / 15,

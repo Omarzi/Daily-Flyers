@@ -63,6 +63,9 @@ dependencies:
 
   shimmer: ^3.0.0
 
+  carousel_slider: ^4.2.1
+  photo_view:
+
   google_mobile_ads: ^5.1.0
 
   # Translation

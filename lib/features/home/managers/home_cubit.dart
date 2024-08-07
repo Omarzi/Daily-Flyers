@@ -104,8 +104,9 @@ class HomeCubit extends Cubit<HomeState> {
       if (search != null && search.isNotEmpty) {
         endPoint += '&search=$search';
       }
-      else if (filter != null && filter.isNotEmpty) {
+      if (filter != null && filter.isNotEmpty) {
         endPoint += '&filter.categories.id=$filter';
+        logWarning('filter : $filter');
       }
 
       final response = await dioHelper.getData(endPoint: endPoint);

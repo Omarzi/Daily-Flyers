@@ -26,6 +26,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     nameFocusNode.addListener(() => setState(() => isNameFieldFocused = nameFocusNode.hasFocus));
     emailFocusNode.addListener(() => setState(() => isEmailFieldFocused = emailFocusNode.hasFocus));
     super.initState();
+    HomeCubit.get(context).profileDataFunction();
   }
 
   @override

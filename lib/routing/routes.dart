@@ -1,6 +1,7 @@
 import 'package:daily_flyers_app/features/check_country/presentation/screens/check_counrty_screen.dart';
 import 'package:daily_flyers_app/features/check_language/presentation/check_language_screen.dart';
 import 'package:daily_flyers_app/features/home/presentation/screens/home_screen.dart';
+import 'package:daily_flyers_app/features/home/presentation/screens/offers/all_photos_screen.dart';
 import 'package:daily_flyers_app/features/home/presentation/screens/offers_screen.dart';
 import 'package:daily_flyers_app/features/home/presentation/screens/profile_screen.dart';
 import 'package:daily_flyers_app/features/wishlist/presentation/screens/wishlist_screen.dart';
@@ -185,6 +186,9 @@ class RouteGenerator {
           return OffersScreen(data: data);
         case DRoutesName.registerRoute:
           return const RegisterScreen();
+        case DRoutesName.allPhotosRoute:
+          final Map<String, dynamic> data = settings.arguments as Map<String, dynamic>;
+          return AllPhotosScreen(map: data);
         case DRoutesName.profileRoute:
           return const ProfileScreen();
         default:

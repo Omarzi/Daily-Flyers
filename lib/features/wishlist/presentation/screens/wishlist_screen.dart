@@ -76,7 +76,7 @@ class _WishlistScreenState extends State<WishlistScreen> {
   void initState() {
     // if(HomeCubit.get(context).profileDataModel.favCompanies == null || HomeCubit.get(context).favCompanies.isEmpty)  HomeCubit.get(context).profileDataFunction();
     _loadNotificationPreference();
-    Ads().showAd();
+    // Ads().showAd();
     super.initState();
     getIntList();
   }
@@ -135,7 +135,7 @@ class _WishlistScreenState extends State<WishlistScreen> {
                             children: [
                               GestureDetector(
                                 onTap: () {
-                                  wishListCubit.getAllCompaniesFunction(limit: 8, page: 1);
+                                  // wishListCubit.getAllCompaniesFunction(limit: 8, page: 1);
                                   context.pop();
                                 },
                                 child: Icon(Icons.arrow_back_outlined,
